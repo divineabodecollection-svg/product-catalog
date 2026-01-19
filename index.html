@@ -18,31 +18,6 @@
 }
 
         
-<script>
-document.querySelectorAll('.popup-img').forEach(img => {
-    img.addEventListener('click', () => {
-        const popup = document.createElement('div');
-        popup.style.position = 'fixed';
-        popup.style.top = 0;
-        popup.style.left = 0;
-        popup.style.width = '100%';
-        popup.style.height = '100%';
-        popup.style.background = 'rgba(0,0,0,0.8)';
-        popup.style.display = 'flex';
-        popup.style.alignItems = 'center';
-        popup.style.justifyContent = 'center';
-        popup.onclick = () => popup.remove();
-
-        const bigImg = document.createElement('img');
-        bigImg.src = img.src;
-        bigImg.style.maxWidth = '90%';
-        bigImg.style.maxHeight = '90%';
-
-        popup.appendChild(bigImg);
-        document.body.appendChild(popup);
-    });
-});
-</script>
 
 
 
@@ -136,9 +111,7 @@ document.querySelectorAll('.popup-img').forEach(img => {
 .contact-inline a:hover {
     text-decoration: underline;
 }  
-        .popup-img {
-    cursor: pointer;
-}
+        
     </style>
 </head>
 <body>
@@ -166,9 +139,11 @@ document.querySelectorAll('.popup-img').forEach(img => {
     
 
 <div class="card">
-    <img src="Vishnu_Red.jpg" class="popup-img">
+   
     <div class="image-group">
-        <img src="Vishnu_Red.jpg">
+        <a href="Vishnu_Red.jpg" target="_blank">
+    <img src="Vishnu_Red.jpg">
+</a>
         <img src="Vishnu_Green.jpg">
         <img src="Vishnu_Pink.jpg">
         <img src="Vishnu_Yellow.jpg">
@@ -440,6 +415,7 @@ document.querySelectorAll('.popup-img').forEach(img => {
 </body>
 
 </html>
+
 
 
 
