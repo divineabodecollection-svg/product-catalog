@@ -114,7 +114,27 @@
 .contact-inline a:hover {
     text-decoration: underline;
 }  
-        
+
+
+        .image-group {
+    display: flex;
+    gap: 10px;
+}
+
+.image-group a {
+    display: block;
+    width: 100px;
+    height: 100px;
+}
+
+.image-group img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    border-radius: 6px;
+    cursor: pointer;
+}
     </style>
 </head>
 <body>
@@ -142,22 +162,36 @@
     
 
 <div class="card">
-   
     <div class="image-group">
-        
-    <img src="Vishnu_Red.jpg">
 
-        <img src="Vishnu_Green.jpg">
-        <img src="Vishnu_Pink.jpg">
-        <img src="Vishnu_Yellow.jpg">
-    <img src="Vishnu.jpg">
+        <a href="Vishnu_Red.jpg" target="_blank">
+            <img src="Vishnu_Red.jpg" alt="Vishnu Red">
+        </a>
+
+        <a href="Vishnu_Green.jpg" target="_blank">
+            <img src="Vishnu_Green.jpg" alt="Vishnu Green">
+        </a>
+
+        <a href="Vishnu_Pink.jpg" target="_blank">
+            <img src="Vishnu_Pink.jpg" alt="Vishnu Pink">
+        </a>
+
+        <a href="Vishnu_Yellow.jpg" target="_blank">
+            <img src="Vishnu_Yellow.jpg" alt="Vishnu Yellow">
+        </a>
+
+        <a href="Vishnu.jpg" target="_blank">
+            <img src="Vishnu.jpg" alt="Vishnu Blue">
+        </a>
+
     </div>
-    
+
     <div class="card-content">
         <h3>Silver Coated BALAJI</h3>
-        <div class="price">₹550</div> 
-        <small>6" Height Balaji Available in Red,Green,Pink and Yellow</small>
+        <div class="price">₹550</div>
+        <small>6" Height Balaji Available in Red, Green, Pink and Yellow</small>
     </div>
+</div>
     <div class="card">
     <div class="image-group">
         <img src="Ganesha1.jpg">
@@ -418,6 +452,7 @@
 </body>
 
 </html>
+
 
 
 
