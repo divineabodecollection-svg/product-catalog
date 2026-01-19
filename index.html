@@ -16,6 +16,42 @@
     object-fit: cover;     /* auto adjust */
     border-radius: 10px;
 }
+
+        
+<script>
+document.querySelectorAll('.popup-img').forEach(img => {
+    img.addEventListener('click', () => {
+        const popup = document.createElement('div');
+        popup.style.position = 'fixed';
+        popup.style.top = 0;
+        popup.style.left = 0;
+        popup.style.width = '100%';
+        popup.style.height = '100%';
+        popup.style.background = 'rgba(0,0,0,0.8)';
+        popup.style.display = 'flex';
+        popup.style.alignItems = 'center';
+        popup.style.justifyContent = 'center';
+        popup.onclick = () => popup.remove();
+
+        const bigImg = document.createElement('img');
+        bigImg.src = img.src;
+        bigImg.style.maxWidth = '90%';
+        bigImg.style.maxHeight = '90%';
+
+        popup.appendChild(bigImg);
+        document.body.appendChild(popup);
+    });
+});
+</script>
+
+
+
+
+
+
+
+
+        
         body {
             font-family: Arial, sans-serif;
             background: #6a1b1a;                 *#f2f2f2*
@@ -400,6 +436,7 @@
 </body>
 
 </html>
+
 
 
 
