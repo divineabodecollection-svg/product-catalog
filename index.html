@@ -9,7 +9,6 @@
         :root {
             --maroon: #5a0a0a;
             --maroon-deep: #3b0606;
-            --maroon-mid: #7a1515;
             --gold: #c9a84c;
             --gold-light: #e8d08a;
             --gold-pale: #f5e9c2;
@@ -21,7 +20,6 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
         html { scroll-behavior: smooth; }
 
         body {
@@ -31,10 +29,89 @@
             overflow-x: hidden;
         }
 
-        /* ── HERO HEADER ── */
+        /* ── LIGHTBOX OVERLAY ── */
+        #lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            cursor: zoom-out;
+            backdrop-filter: blur(6px);
+        }
+
+        #lightbox.active { display: flex; }
+
+        #lightbox img {
+            max-width: 90vw;
+            max-height: 90vh;
+            object-fit: contain;
+            border: 2px solid rgba(201,168,76,0.4);
+            box-shadow: 0 0 80px rgba(0,0,0,0.8);
+            border-radius: 2px;
+            animation: zoomIn 0.25s ease;
+        }
+
+        #lightbox-close {
+            position: absolute;
+            top: 20px; right: 28px;
+            color: var(--gold);
+            font-size: 36px;
+            cursor: pointer;
+            line-height: 1;
+            transition: opacity 0.2s;
+            font-family: 'Cinzel', serif;
+            background: none;
+            border: none;
+        }
+        #lightbox-close:hover { opacity: 0.6; }
+
+        #lightbox-caption {
+            position: absolute;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(245,233,194,0.7);
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: 15px;
+            letter-spacing: 1px;
+            white-space: nowrap;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* ── HOVER ZOOM HINT on images ── */
+        .image-gallery, .image-single {
+            position: relative;
+        }
+
+        .zoom-hint {
+            position: absolute;
+            bottom: 10px; right: 10px;
+            background: rgba(0,0,0,0.55);
+            color: var(--gold-light);
+            font-size: 11px;
+            letter-spacing: 1px;
+            padding: 4px 9px;
+            border-radius: 20px;
+            font-family: 'Raleway', sans-serif;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            z-index: 3;
+        }
+
+        .card:hover .zoom-hint { opacity: 1; }
+
+        /* ── HERO ── */
         .hero {
             background: linear-gradient(160deg, var(--maroon-deep) 0%, var(--maroon) 50%, #8b1a1a 100%);
-            padding: 0;
             position: relative;
             overflow: hidden;
             min-height: 340px;
@@ -127,8 +204,6 @@
             flex-wrap: wrap;
             font-size: 14px;
             color: var(--text-mid);
-            font-weight: 400;
-            letter-spacing: 0.5px;
         }
 
         .contact-bar a {
@@ -139,15 +214,12 @@
         }
         .contact-bar a:hover { color: var(--gold); }
         .contact-item { display: flex; align-items: center; gap: 7px; }
-        .contact-icon { font-size: 15px; }
 
         /* ── NAV ── */
         .top-nav {
             background: var(--maroon-deep);
-            padding: 0;
             display: flex;
             justify-content: center;
-            gap: 0;
             position: sticky;
             top: 0;
             z-index: 100;
@@ -185,7 +257,6 @@
         }
 
         .section-label {
-            font-family: 'Raleway', sans-serif;
             font-size: 11px;
             letter-spacing: 5px;
             text-transform: uppercase;
@@ -253,6 +324,7 @@
             background: linear-gradient(90deg, var(--maroon), var(--gold), var(--maroon));
             opacity: 0;
             transition: opacity 0.35s;
+            z-index: 2;
         }
 
         .card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(90,10,10,0.14); }
@@ -264,6 +336,7 @@
             overflow: hidden;
             background: #f8f0e4;
             aspect-ratio: 4/3;
+            cursor: zoom-in;
         }
 
         .image-gallery img {
@@ -271,9 +344,11 @@
             height: 100%;
             object-fit: cover;
             display: none;
+            transition: transform 0.5s ease;
         }
 
         .image-gallery img.active { display: block; }
+        .image-gallery:hover img.active { transform: scale(1.04); }
 
         .gallery-dots {
             position: absolute;
@@ -282,6 +357,7 @@
             transform: translateX(-50%);
             display: flex;
             gap: 6px;
+            z-index: 4;
         }
 
         .dot {
@@ -320,6 +396,7 @@
             overflow: hidden;
             background: #f8f0e4;
             aspect-ratio: 4/3;
+            cursor: zoom-in;
         }
 
         .image-single img {
@@ -347,7 +424,6 @@
             font-weight: 600;
             color: var(--maroon);
             line-height: 1.35;
-            letter-spacing: 0.5px;
         }
 
         .price {
@@ -363,7 +439,6 @@
             font-style: italic;
             font-size: 13.5px;
             color: var(--text-mid);
-            letter-spacing: 0.3px;
         }
 
         .enquire-btn {
@@ -379,7 +454,6 @@
             text-decoration: none;
             text-align: center;
             transition: all 0.25s ease;
-            cursor: pointer;
         }
 
         .enquire-btn:hover {
@@ -389,16 +463,11 @@
         }
 
         /* ── SECTION DIVIDER ── */
-        .section-divider {
-            text-align: center;
-            padding: 20px 0 0;
-        }
         .section-divider::before {
             content: '';
             display: block;
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(201,168,76,0.4), transparent);
-            margin-bottom: 30px;
         }
 
         /* ── FOOTER ── */
@@ -408,7 +477,6 @@
             text-align: center;
             padding: 44px 20px;
             position: relative;
-            overflow: hidden;
         }
 
         footer::before {
@@ -436,20 +504,10 @@
             margin-top: 16px;
         }
 
-        footer a {
-            color: var(--gold);
-            text-decoration: none;
-            font-size: 14px;
-            transition: opacity 0.2s;
-        }
+        footer a { color: var(--gold); text-decoration: none; font-size: 14px; transition: opacity 0.2s; }
         footer a:hover { opacity: 0.75; }
 
-        .footer-fine {
-            margin-top: 28px;
-            font-size: 11px;
-            opacity: 0.4;
-            letter-spacing: 1px;
-        }
+        .footer-fine { margin-top: 28px; font-size: 11px; opacity: 0.4; letter-spacing: 1px; }
 
         /* ── ANIMATIONS ── */
         @keyframes fadeUp {
@@ -466,7 +524,6 @@
         @media (max-width: 600px) {
             .products-grid { grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 14px 40px; }
             .top-nav a { padding: 14px 18px; font-size: 11px; letter-spacing: 1px; }
-            .contact-bar { gap: 16px; }
         }
 
         @media (max-width: 400px) {
@@ -475,6 +532,13 @@
     </style>
 </head>
 <body>
+
+<!-- ── LIGHTBOX ── -->
+<div id="lightbox">
+    <button id="lightbox-close">✕</button>
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-caption"></div>
+</div>
 
 <!-- ── HERO ── -->
 <header class="hero">
@@ -491,11 +555,11 @@
 <!-- ── CONTACT BAR ── -->
 <div class="contact-bar">
     <div class="contact-item">
-        <span class="contact-icon">📞</span>
+        <span>📞</span>
         <a href="tel:8050666236">8050666236</a>
     </div>
     <div class="contact-item">
-        <span class="contact-icon">✉️</span>
+        <span>✉️</span>
         <a href="mailto:divineabodecollection@gmail.com">divineabodecollection@gmail.com</a>
     </div>
 </div>
@@ -506,9 +570,7 @@
     <a href="#jewellery">Jewellery</a>
 </nav>
 
-<!-- ══════════════════════════════
-     GERMAN SILVER SECTION
-══════════════════════════════ -->
+<!-- ══ GERMAN SILVER ══ -->
 <section id="german-silver">
     <div class="section-header">
         <p class="section-label">Handcrafted Devotion</p>
@@ -518,7 +580,6 @@
 
     <div class="products-grid">
 
-        <!-- Balaji -->
         <div class="card">
             <div class="image-gallery">
                 <img src="Vishnu_Red.jpg" alt="Balaji Red" class="active">
@@ -531,6 +592,7 @@
                     <button class="dot"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Silver Coated Balaji</h3>
@@ -540,7 +602,6 @@
             </div>
         </div>
 
-        <!-- Ganesha -->
         <div class="card">
             <div class="image-gallery">
                 <img src="Ganesha1.jpg" alt="Ganesha 1" class="active">
@@ -555,6 +616,7 @@
                     <button class="dot"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>German Silver Ganesha</h3>
@@ -563,10 +625,10 @@
             </div>
         </div>
 
-        <!-- Gold Ganesha -->
         <div class="card">
             <div class="image-single">
                 <img src="Gold_Ganesha.jpg" alt="Gold Coated Ganesha">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Gold Coated Ganesha</h3>
@@ -575,7 +637,6 @@
             </div>
         </div>
 
-        <!-- Brass Deepam -->
         <div class="card">
             <div class="image-gallery">
                 <img src="Brass_Deepa.jpg" alt="Brass Deepam" class="active">
@@ -588,6 +649,7 @@
                     <button class="dot"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Brass Deepam</h3>
@@ -596,10 +658,10 @@
             </div>
         </div>
 
-        <!-- Bell -->
         <div class="card">
             <div class="image-single">
                 <img src="Bell_Pink.jpg" alt="German Silver Bell">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>German Silver Bell</h3>
@@ -609,10 +671,10 @@
             </div>
         </div>
 
-        <!-- Patta Deepam -->
         <div class="card">
             <div class="image-single">
                 <img src="Patta_Deepam.jpg" alt="Patta Leaf Deepam">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Patta Leaf German Silver Deepam</h3>
@@ -621,10 +683,10 @@
             </div>
         </div>
 
-        <!-- Shank Deepam -->
         <div class="card">
             <div class="image-single">
                 <img src="Shank_Deepam.jpg" alt="Shank Deepam">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Shank German Silver Deepam</h3>
@@ -633,10 +695,10 @@
             </div>
         </div>
 
-        <!-- Ganesha Deepam -->
         <div class="card">
             <div class="image-single">
                 <img src="Ganesha_Deepam.jpg" alt="Ganesha Deepam">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Ganesha German Silver Deepam</h3>
@@ -645,10 +707,10 @@
             </div>
         </div>
 
-        <!-- Kubera Deepam -->
         <div class="card">
             <div class="image-single">
                 <img src="Kubera Deepam.jpg" alt="Kubera Deepam">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>German Silver Kubera Deepam</h3>
@@ -657,10 +719,10 @@
             </div>
         </div>
 
-        <!-- Lakshmi Balaji Lamp -->
         <div class="card">
             <div class="image-single">
                 <img src="Lakshmi_Balaji.jpg" alt="Lakshmi Balaji Lamp">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Lakshmi Balaji Antique German Silver Lamp</h3>
@@ -674,9 +736,7 @@
 
 <div class="section-divider"></div>
 
-<!-- ══════════════════════════════
-     JEWELLERY SECTION
-══════════════════════════════ -->
+<!-- ══ JEWELLERY ══ -->
 <section id="jewellery">
     <div class="section-header">
         <p class="section-label">Oxidized Silver Adornments</p>
@@ -686,7 +746,6 @@
 
     <div class="products-grid">
 
-        <!-- Long Chain 1 -->
         <div class="card">
             <div class="image-gallery">
                 <img src="LongBChain.JPG" alt="Long Chain Back" class="active">
@@ -697,6 +756,7 @@
                     <button class="dot active"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Long Chain</h3>
@@ -705,10 +765,10 @@
             </div>
         </div>
 
-        <!-- Choker -->
         <div class="card">
             <div class="image-single">
                 <img src="Choker2.JPG" alt="Oxidized Silver Chain">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Chain</h3>
@@ -717,7 +777,6 @@
             </div>
         </div>
 
-        <!-- Long Chain 2 -->
         <div class="card">
             <div class="image-gallery">
                 <img src="LongChain2.JPG" alt="Long Chain 2" class="active">
@@ -728,6 +787,7 @@
                     <button class="dot active"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Long Chain</h3>
@@ -736,7 +796,6 @@
             </div>
         </div>
 
-        <!-- Short Necklace 1 -->
         <div class="card">
             <div class="image-gallery">
                 <img src="Chain1.JPG" alt="Short Necklace" class="active">
@@ -747,6 +806,7 @@
                     <button class="dot active"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Short Necklace</h3>
@@ -755,10 +815,10 @@
             </div>
         </div>
 
-        <!-- Short Necklace 2 -->
         <div class="card">
             <div class="image-single">
                 <img src="Short_Necklace.JPG" alt="Short Necklace">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Short Necklace</h3>
@@ -767,10 +827,10 @@
             </div>
         </div>
 
-        <!-- Short Necklace 3 -->
         <div class="card">
             <div class="image-single">
                 <img src="Short_Necklace2.JPG" alt="Short Necklace">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Short Necklace</h3>
@@ -779,7 +839,6 @@
             </div>
         </div>
 
-        <!-- Ear Ring ₹350 Set A -->
         <div class="card">
             <div class="image-gallery">
                 <img src="ER_400_2.JPG" alt="Ear Ring" class="active">
@@ -800,6 +859,7 @@
                     <button class="dot"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Ear Ring</h3>
@@ -808,7 +868,6 @@
             </div>
         </div>
 
-        <!-- Ear Ring ₹350 Set B -->
         <div class="card">
             <div class="image-gallery">
                 <img src="EarRing1_350.jpg" alt="Ear Ring" class="active">
@@ -831,6 +890,7 @@
                     <button class="dot"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Ear Ring</h3>
@@ -839,7 +899,6 @@
             </div>
         </div>
 
-        <!-- Ear Ring ₹200 -->
         <div class="card">
             <div class="image-gallery">
                 <img src="EarRing1_250.jpg" alt="Ear Ring" class="active">
@@ -852,6 +911,7 @@
                     <button class="dot"></button>
                     <button class="dot"></button>
                 </div>
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Ear Ring</h3>
@@ -860,10 +920,10 @@
             </div>
         </div>
 
-        <!-- Ear Ring ₹320 -->
         <div class="card">
             <div class="image-single">
                 <img src="EarRing_320.jpg" alt="Ear Ring">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Ear Ring</h3>
@@ -872,10 +932,10 @@
             </div>
         </div>
 
-        <!-- Ear Ring ₹300 -->
         <div class="card">
             <div class="image-single">
                 <img src="ER_300_1.jpg" alt="Ear Ring">
+                <span class="zoom-hint">🔍 Click to zoom</span>
             </div>
             <div class="card-content">
                 <h3>Oxidized Silver Ear Ring</h3>
@@ -899,18 +959,13 @@
 </footer>
 
 <script>
+    // ── GALLERY LOGIC ──
     document.querySelectorAll('.image-gallery').forEach(gallery => {
         const imgs = gallery.querySelectorAll('img');
         const dots = gallery.querySelectorAll('.dot');
         const prev = gallery.querySelector('.prev');
         const next = gallery.querySelector('.next');
         let current = 0;
-
-        if (imgs.length <= 1) {
-            if (prev) prev.style.display = 'none';
-            if (next) next.style.display = 'none';
-            return;
-        }
 
         function goTo(idx) {
             imgs[current].classList.remove('active');
@@ -925,7 +980,46 @@
         dots.forEach((dot, i) => dot.addEventListener('click', e => { e.stopPropagation(); goTo(i); }));
 
         setInterval(() => goTo(current + 1), 3800);
+
+        // Click gallery area to open lightbox
+        gallery.addEventListener('click', () => {
+            const activeImg = gallery.querySelector('img.active');
+            if (activeImg) openLightbox(activeImg.src, activeImg.alt);
+        });
     });
+
+    // Single images — click to open lightbox
+    document.querySelectorAll('.image-single').forEach(wrap => {
+        wrap.addEventListener('click', () => {
+            const img = wrap.querySelector('img');
+            if (img) openLightbox(img.src, img.alt);
+        });
+    });
+
+    // ── LIGHTBOX LOGIC ──
+    const lightbox     = document.getElementById('lightbox');
+    const lightboxImg  = document.getElementById('lightbox-img');
+    const lightboxCap  = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+
+    function openLightbox(src, caption) {
+        lightboxImg.src = src;
+        lightboxCap.textContent = caption || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+        lightboxImg.src = '';
+    }
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    // Close with Escape key
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 </script>
 
 </body>
