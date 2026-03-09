@@ -2,521 +2,178 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Product Catalog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divine Abode Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=Raleway:wght@300;400;500&display=swap" rel="stylesheet">
     <style>
-        header {
-    background: 6a1b1a;
-    color: Maroon;
-    padding: 22px;
-    text-align: center;
-}
-        .product-card a {
-    display: block;
-}
-        .product-card img {
-    width: 200%;
-    height: 250px;          /* fixed height */
-    object-fit: cover;     /* auto adjust */
-    border-radius: 10px;
-}
+        :root {
+            --maroon: #5a0a0a;
+            --maroon-deep: #3b0606;
+            --maroon-mid: #7a1515;
+            --gold: #c9a84c;
+            --gold-light: #e8d08a;
+            --gold-pale: #f5e9c2;
+            --cream: #fdf6e3;
+            --ivory: #f9f3e1;
+            --text-dark: #2b1a0f;
+            --text-mid: #5c3d2e;
+            --white: #ffffff;
+        }
 
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: Arial, sans-serif;
-            background: #6a1b1a;                 *#f2f2f2*
-            margin: 0;
-            padding: 15px;
+            font-family: 'Raleway', sans-serif;
+            background: var(--cream);
+            color: var(--text-dark);
+            overflow-x: hidden;
         }
 
-        h1 {
+        /* ── HERO HEADER ── */
+        .hero {
+            background: linear-gradient(160deg, var(--maroon-deep) 0%, var(--maroon) 50%, #8b1a1a 100%);
+            padding: 0;
+            position: relative;
+            overflow: hidden;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute; inset: 0;
+            background:
+                radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 30% at 80% 80%, rgba(201,168,76,0.10) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, transparent, var(--gold), #f0d080, var(--gold), transparent);
+        }
+
+        .hero-ornament {
+            color: var(--gold);
+            font-size: 13px;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.7;
+            margin-bottom: 12px;
+            font-family: 'Raleway', sans-serif;
+            font-weight: 300;
+            animation: fadeUp 1s ease both;
+        }
+
+        .hero-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(2rem, 5vw, 3.8rem);
+            font-weight: 700;
+            color: var(--gold-light);
+            letter-spacing: 4px;
             text-align: center;
+            line-height: 1.15;
+            text-shadow: 0 2px 30px rgba(0,0,0,0.4);
+            animation: fadeUp 1s 0.15s ease both;
         }
 
-        .products {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 15px;
+        .hero-subtitle {
+            font-family: 'Cormorant Garamond', serif;
+            font-style: italic;
+            font-size: clamp(1rem, 2vw, 1.35rem);
+            color: rgba(245,233,194,0.75);
+            margin-top: 10px;
+            letter-spacing: 2px;
+            animation: fadeUp 1s 0.3s ease both;
         }
 
-        .card {
-            background: white;
-            border-radius: 10px;
-            padding: 10px;
-            text-align: center;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        .hero-divider {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin: 18px 0;
+            animation: fadeUp 1s 0.4s ease both;
         }
 
-        img {
-            width: 50%;
-            height: 500px;
-            object-fit: cover;
-            border-radius: 8px;
+        .hero-divider span {
+            display: block;
+            height: 1px;
+            width: 80px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+        .hero-divider span:last-child {
+            background: linear-gradient(90deg, var(--gold), transparent);
         }
 
-        .price {
-            font-weight: bold;
-            color: #2e7d32;
-        }
-        .image-group {
-    display: flex;              /* makes images horizontal */
-    gap: 8px;
-}
+        .hero-diamond { color: var(--gold); font-size: 10px; }
 
-.image-group img {
-    width: 33%;
-    height: 120px;
-    object-fit: cover;
-    border-radius: 8px;
-}
-        .section-title {
-    color: #d4af37;
-    font-size: 40px;
-    text-align: center;
-}
+        /* ── CONTACT BAR ── */
+        .contact-bar {
+            background: var(--ivory);
+            border-bottom: 1px solid rgba(201,168,76,0.25);
+            padding: 12px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            flex-wrap: wrap;
+            font-size: 14px;
+            color: var(--text-mid);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .contact-bar a {
+            color: var(--maroon);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+        .contact-bar a:hover { color: var(--gold); }
+        .contact-item { display: flex; align-items: center; gap: 7px; }
+        .contact-icon { font-size: 15px; }
+
+        /* ── NAV ── */
         .top-nav {
-    background: #f5f1e8;
-    padding: 10px;
-    text-align: center;
-}
-
-.top-nav a {
-    margin: 0 15px;
-    text-decoration: none;
-    font-weight: bold;
-    color: #3e2723;
-}
-
-.top-nav a:hover {
-    color: #bfa04a;
-}
-  .contact-inline {
-    text-align: center;
-    margin: 10px 0 30px;
-    font-size: 16px;
-    color: #333;
-}
-
-.contact-inline a {
-    color: #bfa04a; /* golden */
-    text-decoration: none;
-    font-weight: bold;
-}
-
-.contact-inline a:hover {
-    text-decoration: underline;
-}  
-
-
-        .image-group {
-    display: flex;
-    gap: 10px;
-}
-
-.image-group {
-    display: flex;
-    justify-content: center;   /* centers images */
-    align-items: center;
-    gap: 10px;
-    flex-wrap: wrap;
-
-}
-
-.image-group img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    border-radius: 6px;
-    cursor: pointer;
-}
-    </style>
-</head>
-<body>
-<h1 class="section-title">Divine Abode Collection</h1>
-    <div class="contact-inline">
-    📞 <a href="tel:8050666236">8050666236</a>
-    &nbsp; | &nbsp;
-    ✉️ <a href="mailto:divineabodecollection@gmail.com">
-        divineabodecollection@gmail.com
-    </a>
-</div>
-<nav class="top-nav">
-    <a href="#german-silver">Click here for German Silver</a>
-    <a href="#jewellery">Click here for Jewellery</a>
-</nav>
-
-<section class="product-section" id="german-silver">
-    
-
-    <div class="product-grid">
-        <!-- German Silver products -->
-    </div>
-</section>
-    
-    
-
-<div class="card">
-    <div class="image-group">
-
-        <a href="Vishnu_Red.jpg" target="_blank">
-            <img src="Vishnu_Red.jpg" alt="Vishnu Red">
-        </a>
-
-        <a href="Vishnu_Pink.jpg" target="_blank">
-            <img src="Vishnu_Pink.jpg" alt="Vishnu Pink">
-        </a>
-
-        <a href="Vishnu_Yellow.jpg" target="_blank">
-            <img src="Vishnu_Yellow.jpg" alt="Vishnu Yellow">
-        </a>
-
-
-
-    </div>
-
-    <div class="card-content">
-        <h3>Silver Coated BALAJI</h3>
-        <div class="price">₹550</div>
-        <small>6" Height Balaji Available in Red, Green, Pink and Yellow</small>
-    </div>
-</div>
-    <div class="card">
-    <div class="image-group">
-        <a href="Ganesha1.jpg" target="_blank"><img src="Ganesha1.jpg"></a>
-        <a href="Ganesha3.jpg" target="_blank"><img src="Ganesha3.jpg"></a>
-        <a href="Ganesha4.jpg" target="_blank"><img src="Ganesha4.jpg"></a>
-        <a href="Ganesha5.jpg" target="_blank"><img src="Ganesha5.jpg"></a>
-    </div>
-
-    <div class="card-content">
-        <h3>German Silver Ganesha</h3>
-        <div class="price">₹800</div>
-   
-</div>
-            <div class="card">
-    <div class="image-group">
-        <img src="Gold_Ganesha.jpg">
-
-    </div>
-    
-    <div class="card-content">
-        <h3>Gold Coated Ganesha</h3>
-        <div class="price">₹700</div> 
-    </div>
-
- <div class="card">
-    <div class="image-group">
-        <img src="Brass_Deepa.jpg">
-        <img src="Brass_Deepa_Purple.jpg">
-        <img src="Brass_Deepam_Yellow.jpg">
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Brass Deepam </h3>
-        <div class="price">₹250</div> 
-    </div> 
-              <div class="card">
-    <div class="image-group">
-        <img src="Bell_Pink.jpg">
-
-    </div>
-    
-    <div class="card-content">
-        <h3>German Silver Bell</h3>
-        <div class="price">₹800</div> 
-        <small> Available in Green,Pink and White</small>
-    </div>  
-              <div class="card">
-    <div class="image-group">
-        <img src="Patta_Deepam.jpg">
-
-    </div>
-    
-    <div class="card-content">
-        <h3>Patta Leaf German Silver Deepam</h3>
-        <div class="price">₹100</div> 
-
-    </div>  
-                                <div class="card">
-    <div class="image-group">
-        <img src="Shank_Deepam.jpg">
-
-    </div>
-    
-    <div class="card-content">
-        <h3> Shank German Silver Deepam</h3>
-        <div class="price">₹250</div> 
-     
-    </div> 
-                                    <div class="card">
-    <div class="image-group">
-        <img src="Ganesha_Deepam.jpg">
-
-    </div>
-    
-    <div class="card-content">
-        <h3>Ganesha German Silver Deepam</h3>
-        <div class="price">₹250</div> 
-     
-    </div> 
-  <div class="card">
-    <div class="image-group">
-    
-        <img src="Kubera Deepam.jpg">
-    
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>German Silver Kubera Deepam </h3>
-        <div class="price">₹420</div> 
-    </div>  
-       </div>  
-                                <div class="card">
-    <div class="image-group">
-        <img src="Lakshmi_Balaji.jpg">
-
-    </div>
-    
-    <div class="card-content">
-        <h3>Lakshmi Balaji Antique German Silver Lamp</h3>
-        <div class="price">₹3567.3
-        </div> 
-        <section class="product-section" id="jewellery">
-    <h2 class="section-title">Jewellery</h2>
-
-    <div class="product-grid">
-        <!-- Jewellery products -->
-    </div>
-</section>
-    </div>
-    <div class="card">
-    <div class="image-group">
-        <img src="LongBChain.JPG">
-        <img src="LongChainM.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Long Chain</h3>
-        <div class="price">₹550</div> 
-    </div> 
- <div class="card">
-    <div class="image-group">
-  
-
-         </div> 
- <div class="card">
-    <div class="image-group">
-        <img src="Choker2.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Chain</h3>
-        <div class="price">₹300</div>        
-    </div>
-     <div class="card">
-    <div class="image-group">
-        <img src="LongChain2.JPG">
-        <img src="Peacock_Chain.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Long Chain</h3>
-        <div class="price">₹400</div> 
-    </div> 
-<div class="card">
-    <div class="image-group">
-        <img src="Chain1.JPG">
-        <img src="Short_Necklace3.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Short Necklace</h3>
-        <div class="price">₹450</div> 
-   
-    </div> 
-<div class="card">
-    <div class="image-group">
-    
-        <img src="Short_Necklace.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Short Necklace</h3>
-        <div class="price">₹280</div> 
-        </div> 
-<div class="card">
-    <div class="image-group">
-    
-        <img src="Short_Necklace2.JPG">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Short Necklace</h3>
-        <div class="price">₹200</div> 
-
-        <div class="card">
-    <div class="image-group">
-     
-        <img src="ER_400_2.JPG">
-        <img src="ER_400_3.JPG">
-        <img src="ER_400_4.jpg">
-        <img src="ER_400_5.jpg">
-        <img src="ER_400_6.jpg">
-        <img src="ER_400_7.jpg">
-        <img src="ER_400_8.jpg">
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹350</div>
-             <div class="card">
-    <div class="image-group">
-        <img src="EarRing1_350.jpg">
-         <img src="EarRing3_350.jpg">
-         <img src="EarRing4_350.jpg">
-         <img src="EarRing5_350.jpg">
-         <img src="EarRing7_350.jpg">
-        <img src="EarRing8_350.jpg">
-         <img src="EarRing9_350.jpg">
-     
-         <img src="EarRing11_350.jpg">
-
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹350</div>
-        <div class="card">
-    <div class="image-group">
-        <img src="EarRing1_250.jpg">
-         <img src="EarRing2_250.jpg">
-         <img src="EarRing3_250.jpg">
-         
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹200</div>
-
-        <div class="card">
-    <div class="image-group">
-        <img src="EarRing_320.jpg">
- 
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹320</div>
-
-        <div class="card">
-    <div class="image-group">
-        <img src="ER_300_1.jpg">
- 
-        
-    </div>
-    
-    <div class="card-content">
-        <h3>Oxidized Silver Ear Ring</h3>
-        <div class="price">₹300</div>
-        
-</div>
-    <footer class="site-footer">
-    <p>📞 Mobile: <a href="tel:8050666236">8050666236</a></p>
-    <p>✉️ Email: <a href="mailto:divineabodecollection@gmail.com">
-        divineabodecollection@gmail.com
-    </a></p>
-</footer>
-</body>
-
-</html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            background: var(--maroon-deep);
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.3);
+        }
+
+        .top-nav a {
+            color: var(--gold-pale);
+            text-decoration: none;
+            font-family: 'Cinzel', serif;
+            font-size: 12.5px;
+            letter-spacing: 2px;
+            padding: 16px 36px;
+            display: block;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .top-nav a::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 50%; right: 50%;
+            height: 2px;
+            background: var(--gold);
+            transition: all 0.3s ease;
+        }
+
+        .top-nav a:hover { color: var(--gold); }
+        .top-nav a:hover::after { left: 20%; right: 20%; }
